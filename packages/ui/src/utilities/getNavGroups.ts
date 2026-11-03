@@ -4,6 +4,7 @@ import { type I18nClient } from '@payloadcms/translations'
 import { EntityType } from 'payload'
 
 import { type EntityToGroup, groupNavItems } from './groupNavItems.js'
+import { sortNavGroups } from './sortNavGroups.js'
 
 /** @internal */
 export function getNavGroups(
@@ -46,5 +47,5 @@ export function getNavGroups(
     i18n,
   )
 
-  return navGroups
+  return sortNavGroups({ groupOrder: config.admin.groups, groups: navGroups, i18n })
 }

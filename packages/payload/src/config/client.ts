@@ -53,7 +53,10 @@ export type ClientConfig = {
       widgets: ClientWidget[]
     }
     livePreview?: Omit<RootLivePreviewConfig, ServerOnlyLivePreviewProperties>
-  } & Omit<SanitizedConfig['admin'], 'components' | 'dashboard' | 'dependencies' | 'livePreview'>
+  } & Omit<
+    SanitizedConfig['admin'],
+    'components' | 'dashboard' | 'dependencies' | 'groups' | 'livePreview'
+  >
   blocks: ClientBlock[]
   blocksMap: Record<BlockSlug, ClientBlock>
   collections: ClientCollectionConfig[]

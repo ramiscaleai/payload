@@ -146,6 +146,7 @@ The following options are available:
 | `constrainWidth`           | **Experimental.** Constrain the Admin Panel content width to 1080px on desktop. Defaults to `false`.                                            |
 | `custom`                   | Any custom properties you wish to pass to the Admin Panel.                                                                                      |
 | `dateFormat`               | The date format that will be used for all dates within the Admin Panel. Any valid [date-fns](https://date-fns.org/) format pattern can be used. |
+| `groups`                   | Set the order of the Collection and Global groups in the sidebar and on the dashboard. [More details](#nav-groups).                             |
 | `livePreview`              | Enable real-time editing for instant visual feedback of your front-end application. [More details](../live-preview/overview).                   |
 | `meta`                     | Base metadata to use for the Admin Panel. [More details](./metadata).                                                                           |
 | `routes`                   | Replace built-in Admin Panel routes with your own custom routes. [More details](#customizing-routes).                                           |
@@ -331,6 +332,36 @@ The Payload Admin Panel is translated in over [30 languages and counting](https:
 ## Light and Dark Modes
 
 Users in the Admin Panel have the ability to choose between light mode and dark mode for their editing experience. Users can select their preferred theme from their account page. Once selected, it is saved to their user's preferences and persisted across sessions and devices. If no theme was selected, the Admin Panel will automatically detect the operation system's theme and use that as the default.
+
+## Nav Groups
+
+Collections and Globals are grouped in the sidebar and on the dashboard by their `admin.group` option (see [Collection Admin Options](../configuration/collections#admin-options) and [Global Admin Options](../configuration/globals#admin-options)). By default, the **Collections** and **Globals** groups come first, followed by custom groups in the order your Collections, then your Globals, first use them.
+
+To change the order, list group labels in `admin.groups`:
+
+```ts
+import { buildConfig } from 'payload'
+
+const config = buildConfig({
+  // ...
+  admin: {
+    groups: ['System', 'Content', 'Collections'], // highlight-line
+  },
+})
+```
+
+Listed groups render first, in the order you list them. Groups you don't list follow in their default order, so you only need to list the groups you want to move. Listing a group does not create it: a group only renders when it contains at least one Collection or Global the user can access.
+
+Each entry is matched against a group's label the same way `admin.group` values are, so it accepts a string or a localization object. The default groups are labelled `Collections` and `Globals`, translated into the user's language. If your Admin Panel supports more than one language, use a localization object to match a group in each language:
+
+```ts
+admin: {
+  groups: [
+    { de: 'Einstellungen', en: 'Settings' },
+    { de: 'Sammlungen', en: 'Collections' },
+  ],
+}
+```
 
 ## Timezones
 

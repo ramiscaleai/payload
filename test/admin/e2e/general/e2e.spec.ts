@@ -854,6 +854,29 @@ describe('General', () => {
       await expect(button).toBeVisible()
     })
 
+    test('nav — should order groups by admin.groups', async () => {
+      await page.goto(postsUrl.admin)
+      await openNav(page)
+
+      await expect(page.locator('.nav .nav-group__label')).toHaveText([
+        'Collections',
+        'Group',
+        'One',
+        'Globals',
+      ])
+    })
+
+    test('dashboard — should order groups by admin.groups', async () => {
+      await page.goto(postsUrl.admin)
+
+      await expect(page.locator('.collections__label')).toHaveText([
+        'Collections',
+        'Group',
+        'One',
+        'Globals',
+      ])
+    })
+
     test('nav — should save group collapse preferences', async () => {
       await page.goto(postsUrl.admin)
       await openNav(page)

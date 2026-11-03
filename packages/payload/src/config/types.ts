@@ -1172,6 +1172,20 @@ type RootAdminConfig = {
    * Note: If you've modified the default paths via `admin.routes`, delete those directories instead.
    */
   disable?: boolean
+  /**
+   * Order of the groups of Collection and Global links in the sidebar and on the dashboard.
+   * Each entry is matched against a group's label, like `admin.group` on Collections and Globals,
+   * so it takes a string or a localization object. Use `Collections` and `Globals` (in the
+   * current language) for the default groups.
+   *
+   * Listed groups render first, in this order. Unlisted groups follow in the default order.
+   *
+   * @example
+   * groups: ['System', 'Content', 'Collections']
+   *
+   * @see https://payloadcms.com/docs/admin/overview#nav-groups
+   */
+  groups?: (Record<string, string> | string)[]
   importMap?: {
     /**
      * Automatically generate component map during development

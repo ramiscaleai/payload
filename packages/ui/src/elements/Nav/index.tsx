@@ -17,6 +17,7 @@ import {
 /* eslint-enable payload/no-imports-from-exports-dir */
 import { AlignJustifiedIcon } from '../../icons/AlignJustified/index.js'
 import { groupNavItems } from '../../utilities/groupNavItems.js'
+import { sortNavGroups } from '../../utilities/sortNavGroups.js'
 import { RenderServerComponent } from '../RenderServerComponent/index.js'
 import { SidebarTabs } from './SidebarTabs/index.js'
 import './index.css'
@@ -64,7 +65,7 @@ export const DefaultNav: React.FC<NavProps> = async (props) => {
 
   // Group collections and globals for nav display
   // These groups are passed to SidebarTabs -> CollectionsTab to avoid recomputing
-  const groups = groupNavItems(
+  const groupsInDefaultOrder = groupNavItems(
     [
       ...collections
         .filter(({ slug }) => visibleEntities.collections.includes(slug))
@@ -88,6 +89,12 @@ export const DefaultNav: React.FC<NavProps> = async (props) => {
     permissions,
     i18n,
   )
+
+  const groups = sortNavGroups({
+    groupOrder: payload.config.admin.groups,
+    groups: groupsInDefaultOrder,
+    i18n,
+  })
 
   const navPreferences = await getNavPrefs(req)
 

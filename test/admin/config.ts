@@ -197,6 +197,9 @@ export default buildConfigWithDefaults({
           path: '/components/TestComponent.js#TestComponent',
         },
       },
+      // Puts the globals-only "Group" above the collections group "One"; the unlisted
+      // default "Globals" group follows the listed groups
+      groups: ['Collections', 'Group', 'One'],
       importMap: {
         baseDir: path.resolve(dirname),
       },
